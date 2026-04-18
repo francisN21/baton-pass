@@ -1,0 +1,31 @@
+{
+  "name": "baton-pass",
+  "version": "0.6.0",
+  "description": "Low-token handoff workflow for multi-agent repos. Installs Claude Code slash commands and shared memory files.",
+  "bin": {
+    "baton-pass": "./bin/baton-pass.js"
+  },
+  "files": [
+    "bin/",
+    "commands/",
+    "templates/"
+  ],
+  "keywords": [
+    "claude",
+    "claude-code",
+    "ai-agents",
+    "multi-agent",
+    "handoff",
+    "continuity"
+  ],
+  "author": "francisN21",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/francisN21/baton-pass.git"
+  },
+  "homepage": "https://github.com/francisN21/baton-pass",
+  "engines": {
+    "node": ">=16"
+  }
+}

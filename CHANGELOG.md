@@ -1,5 +1,14 @@
 # Changelog
 
+## 0.6.0 - 2026-04-18
+
+- Added `package.json` — package is now installable via `npx baton-pass`
+- Added `bin/baton-pass.js` — zero-dependency Node.js CLI with `init`, `commands`, and `help` subcommands
+- `npx baton-pass init` installs shared memory files and Claude Code slash commands in one step
+- `npx baton-pass commands` installs only the slash commands
+- Both commands accept an optional `[target-dir]` and `--force` flag
+- Rewrote README Quick Start to lead with the npx command
+
 ## 0.5.0 - 2026-04-18
 
 - Added `commands/` directory with Claude Code slash command files for all seven moves: `new-game`, `save-state`, `baton-pass`, `foresight`, `dragon-dance`, `party-check`, `hindsight`

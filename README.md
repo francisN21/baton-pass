@@ -259,44 +259,71 @@ If you are already on Claude Pro and a paid ChatGPT/Codex plan, this is a much c
 
 ## Quick Start
 
-**Step 1 — copy the skill into your repo** (anywhere you keep shared tooling, e.g. `docs/skills/baton-pass/`):
-
 ```bash
-git clone https://github.com/francisN21/baton-pass docs/skills/baton-pass
+npx baton-pass init
 ```
 
-**Step 2 — run the initializer:**
+That's it. This installs the shared memory files and Claude Code slash commands into your project.
 
-```bash
-# Bash
-./docs/skills/baton-pass/scripts/new-game.sh
+---
 
-# PowerShell
-./docs/skills/baton-pass/scripts/new-game.ps1
+### What gets installed
+
+**Shared memory files** (tracked in your repo):
+```
+baton-pass.config.json
+baton-pass.state.json
+docs/agent-handoff.md
+docs/current-state.md
+docs/next-task.md
+docs/progress.md
 ```
 
-Or follow the manual path in [INIT.md](./INIT.md).
-
-This creates the shared memory files **and** installs Claude Code slash commands into `.claude/commands/`.
-
-**Step 3 — start using moves directly in Claude Code:**
-
+**Claude Code slash commands** (in `.claude/commands/`):
 ```
 /new-game
 /save-state
-/baton-pass   codex
+/baton-pass
 /foresight
 /dragon-dance
 /party-check
 /hindsight
 ```
 
-Each command tells Claude exactly what to do for that move. No copy-pasting instructions.
+Each command tells Claude exactly what to do for that move — no copy-pasting instructions.
 
-Then:
+---
+
+### Options
+
+```bash
+npx baton-pass init [target-dir]      # install into a specific directory
+npx baton-pass commands [target-dir]  # install only slash commands
+npx baton-pass init --force           # overwrite existing files
+npx baton-pass help
+```
+
+---
+
+### After init
+
 1. Adjust `baton-pass.config.json` if your repo uses different file paths.
-2. Add repo-specific rules to `docs/agent-handoff.md`.
-   Keep the portable skill generic — project rules stay local.
+2. Fill in `docs/current-state.md` and `docs/next-task.md`.
+3. Add repo-specific rules to `docs/agent-handoff.md`. Keep the portable skill generic — project rules stay local.
+
+---
+
+### Manual install (no npx)
+
+```bash
+# Bash
+./scripts/new-game.sh
+
+# PowerShell
+./scripts/new-game.ps1
+```
+
+Or follow the step-by-step path in [INIT.md](./INIT.md).
 
 ---
 
@@ -304,12 +331,15 @@ Then:
 
 ```
 baton-pass/
+├── package.json
 ├── README.md
 ├── SKILL.md
 ├── INIT.md
 ├── LICENSE
 ├── CONTRIBUTING.md
 ├── CHANGELOG.md
+├── bin/
+│   └── baton-pass.js
 ├── scripts/
 │   ├── new-game.ps1
 │   ├── new-game.sh
