@@ -6,6 +6,7 @@ param(
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $packageRoot = Split-Path -Parent $scriptDir
 $templatesDir = Join-Path $packageRoot "templates"
+$commandsDir = Join-Path $packageRoot "commands"
 $resolvedRoot = Resolve-Path -Path $RootPath
 
 function Copy-IfNeeded {
@@ -48,6 +49,22 @@ foreach ($entry in $targets) {
   Copy-IfNeeded -TemplatePath $templatePath -TargetPath $targetPath
 }
 
+$claudeCommandsDir = Join-Path $resolvedRoot ".claude" | Join-Path -ChildPath "commands"
+if (Test-Path -LiteralPath $commandsDir) {
+  if (-not (Test-Path -LiteralPath $claudeCommandsDir)) {
+    New-Item -ItemType Directory -Path $claudeCommandsDir -Force | Out-Null
+  }
+  Get-ChildItem -Path $commandsDir -Filter "*.md" | ForEach-Object {
+    $dest = Join-Path $claudeCommandsDir $_.Name
+    if ((Test-Path -LiteralPath $dest) -and -not $Force) {
+      Write-Host "skip  $dest"
+    } else {
+      Copy-Item -LiteralPath $_.FullName -Destination $dest -Force
+      Write-Host "write $dest"
+    }
+  }
+}
+
 Write-Host ""
 Write-Host "Baton Pass new-game complete."
 Write-Host "Next:"
@@ -56,3 +73,4 @@ Write-Host "- Review baton-pass.state.json"
 Write-Host "- Customize docs/agent-handoff.md for your repo"
 Write-Host "- Fill in docs/current-state.md and docs/next-task.md"
 Write-Host "- Start appending real sessions to docs/progress.md"
+Write-Host "- Slash commands installed to .claude/commands/ — use /new-game, /save-state, /baton-pass, /foresight, /dragon-dance, /party-check, /hindsight"

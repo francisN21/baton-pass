@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.5.0 - 2026-04-18
+
+- Added `commands/` directory with Claude Code slash command files for all seven moves: `new-game`, `save-state`, `baton-pass`, `foresight`, `dragon-dance`, `party-check`, `hindsight`
+- Updated `init-baton-pass.ps1` and `init-baton-pass.sh` to copy command files into `.claude/commands/` automatically during `new-game`
+- Updated README Quick Start — added step-by-step setup instructions and slash command usage examples
+- Updated repository layout in README to include `commands/` directory
+
 ## 0.4.0 - 2026-04-18
 
 - Added `hindsight` move — full baton chain audit covering milestones claimed, verification gaps, risks carried forward, drift across batons, and open items never resolved

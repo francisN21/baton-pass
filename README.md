@@ -259,6 +259,14 @@ If you are already on Claude Pro and a paid ChatGPT/Codex plan, this is a much c
 
 ## Quick Start
 
+**Step 1 — copy the skill into your repo** (anywhere you keep shared tooling, e.g. `docs/skills/baton-pass/`):
+
+```bash
+git clone https://github.com/francisN21/baton-pass docs/skills/baton-pass
+```
+
+**Step 2 — run the initializer:**
+
 ```bash
 # Bash
 ./docs/skills/baton-pass/scripts/new-game.sh
@@ -269,10 +277,25 @@ If you are already on Claude Pro and a paid ChatGPT/Codex plan, this is a much c
 
 Or follow the manual path in [INIT.md](./INIT.md).
 
+This creates the shared memory files **and** installs Claude Code slash commands into `.claude/commands/`.
+
+**Step 3 — start using moves directly in Claude Code:**
+
+```
+/new-game
+/save-state
+/baton-pass   codex
+/foresight
+/dragon-dance
+/party-check
+/hindsight
+```
+
+Each command tells Claude exactly what to do for that move. No copy-pasting instructions.
+
 Then:
-1. Read [SKILL.md](./SKILL.md) — the full move reference.
-2. Adjust `baton-pass.config.json` if your repo uses different file paths.
-3. Add repo-specific rules to `docs/agent-handoff.md`.
+1. Adjust `baton-pass.config.json` if your repo uses different file paths.
+2. Add repo-specific rules to `docs/agent-handoff.md`.
    Keep the portable skill generic — project rules stay local.
 
 ---
@@ -292,6 +315,14 @@ baton-pass/
 │   ├── new-game.sh
 │   ├── init-baton-pass.ps1
 │   └── init-baton-pass.sh
+├── commands/
+│   ├── new-game.md
+│   ├── save-state.md
+│   ├── baton-pass.md
+│   ├── foresight.md
+│   ├── dragon-dance.md
+│   ├── party-check.md
+│   └── hindsight.md
 ├── examples/
 │   └── example-baton-pass.md
 └── templates/
