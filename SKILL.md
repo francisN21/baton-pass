@@ -12,6 +12,7 @@ This is a low-token workflow utility, not a documentation ceremony.
 - `foresight` = receive or resume work, verify alignment, then continue
 - `dragon-dance` = improve the workflow only when a real lesson was learned
 - `party-check` = inspect who last acted, who should act next, and the current repo state
+- `hindsight` = audit the full baton chain — milestones claimed, verifications made, risks carried, items never resolved
 
 ## Core Rule
 
@@ -68,6 +69,18 @@ Use when:
 - multiple agents share the repo
 - you want the current status without paying for a full `foresight`
 
+### `hindsight`
+
+Use when:
+- a milestone or major feature is complete and you want a clean record
+- something feels wrong and you need to trace what was actually claimed vs. done
+- a new agent is joining and needs a full picture of the history, not just the last baton
+- a `foresight` found severe drift and you need to understand how far back it started
+- the project is being reviewed, handed to a human, or archived
+
+Do not run `hindsight` after every baton.
+It is an audit, not a routine checkpoint.
+
 ## What Each Move Should Write
 
 ### `save-state`
@@ -119,6 +132,25 @@ Minimal output:
 - next agent
 - updated at
 - short summary
+
+### `hindsight`
+
+Minimal output:
+- audit scope (full chain or bounded range)
+- baton chain table (from → to, date, goal summary)
+- milestones claimed per agent with verification status
+- verification gaps (claims made without evidence)
+- risks carried forward across batons
+- drift found across batons
+- open items never resolved
+- audit verdict: `clean`, `gaps found`, `risks unresolved`, or `action required`
+
+Sources to check:
+- `docs/progress.md` — full session log
+- `docs/next-task.md` — Turn State history
+- `baton-pass.state.json` — programmatic state
+- git log — commit messages and dates
+- any saved baton or save-state files referenced in progress
 
 ## Receive Procedure For `foresight`
 
@@ -186,6 +218,7 @@ Avoid:
 - using `dragon-dance` when nothing was learned
 - rewriting all memory files for trivial work
 - turning `foresight` into a full repo audit every time
+- running `hindsight` after every baton — it is an audit, not a routine step
 - restating the whole project instead of the delta
 - writing `passed` when you mean `expected to pass, unverified`
 - handing off with a dirty working tree without naming the uncommitted state
@@ -205,3 +238,7 @@ Improve:
 
 Check turn ownership:
 - `party-check`
+
+Audit the full chain:
+- `hindsight`
+- if gaps or unresolved risks are found, run `dragon-dance`

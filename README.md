@@ -16,6 +16,7 @@ baton-pass   ──  transfer when tokens are low or ownership changes
 foresight    ──  receive or resume, verify alignment before acting
 dragon-dance ──  record a real workflow lesson (conditional, not automatic)
 party-check  ──  see who owns the work right now
+hindsight    ──  audit the full baton chain — milestones, verifications, risks, open items
 ```
 
 ---
@@ -147,6 +148,29 @@ Cheap. No full audit needed.
 
 ---
 
+### 🔍 `hindsight`
+**Use when you need a full audit of what actually happened across the chain.**
+
+Good triggers:
+- a milestone is complete and you want a clean record
+- something feels wrong and you need to trace the source
+- a new agent is joining and needs the full picture, not just the last baton
+- a `foresight` found severe drift and you need to know how far back it started
+- the project is being reviewed, handed to a human, or archived
+
+What it produces:
+- baton chain table (who passed to whom, when, and why)
+- milestones claimed per agent with honest verification status
+- verification gaps (claims made without supporting evidence)
+- risks carried forward without resolution
+- drift that accumulated across batons
+- open items that were never closed
+- verdict: `clean`, `gaps found`, `risks unresolved`, or `action required`
+
+**Do not run `hindsight` after every baton.** It is an audit, not a routine step.
+
+---
+
 ## Turn State
 
 Every `next-task` file carries a **Turn State block** at the very top.
@@ -198,6 +222,11 @@ foresight  →  correct docs  →  dragon-dance (if lesson)  →  continue
 party-check
 ```
 
+**Full chain audit:**
+```
+hindsight  →  dragon-dance (if gaps or unresolved risks found)
+```
+
 ---
 
 ## Why Claude + Codex
@@ -219,6 +248,7 @@ If you are already on Claude Pro and a paid ChatGPT/Codex plan, this is a much c
 ```
 ✗  using baton-pass for every tiny checkpoint
 ✗  running dragon-dance when nothing was learned
+✗  running hindsight after every baton — it is an audit, not a routine step
 ✗  rewriting all memory files for trivial work
 ✗  turning foresight into a full repo audit every time
 ✗  writing "passed" when you mean "expected to pass, unverified"
@@ -275,7 +305,8 @@ baton-pass/
     ├── save-state.template.md
     ├── foresight.template.md
     ├── dragon-dance.template.md
-    └── party-check.template.md
+    ├── party-check.template.md
+    └── hindsight.template.md
 ```
 
 ---
