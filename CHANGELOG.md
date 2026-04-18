@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.4.0 - 2026-04-18
+
+- Added `hindsight` move — full baton chain audit covering milestones claimed, verification gaps, risks carried forward, drift across batons, and open items never resolved
+- Added `hindsight.template.md` with baton chain table, per-agent milestone log, verification gap section, risk tracking, drift log, and audit verdict field
+- Added `hindsight` to the move set, when-to-use rules, output spec, and anti-patterns in SKILL.md
+- Added `hindsight` section to README.md with good triggers, output summary, and flow example
+- Updated anti-patterns in both SKILL.md and README.md: do not run hindsight after every baton
+
 ## 0.3.0 - 2026-04-18
 
 - Fixed dragon-dance.template.md header — removed "Use this after every baton-pass" (contradicted the conditional rule in SKILL.md)
