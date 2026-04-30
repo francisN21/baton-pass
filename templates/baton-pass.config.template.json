@@ -3,7 +3,7 @@
   "triggers": {
     "initialize": "new-game",
     "pause": "save-state",
-    "handoff": "baton-pass",
+    "transfer": "baton-pass",
     "receive": "foresight",
     "improvement": "dragon-dance",
     "status": "party-check"
