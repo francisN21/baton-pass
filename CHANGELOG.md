@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.6.2 - 2026-04-29
+
+- Fixed `new-game` bash script creating a file named `baton-pass` in the repo root instead of `docs/agent-handoff.md`. Root cause: `"handoff"` key appeared in both `triggers` and `paths` sections of the config template; sed matched the wrong one first. Renamed `triggers.handoff` to `triggers.transfer` to eliminate the collision.
+
 ## 0.6.1 - 2026-04-29
 
 - Added Claude Code plugin manifest at `.claude-plugin/plugin.json`.
