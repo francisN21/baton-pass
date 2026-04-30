@@ -1,0 +1,8 @@
+{
+  "state": "handed-off",
+  "lastMove": "baton-pass",
+  "lastAgent": "Claude Sonnet 4.6",
+  "nextAgent": "Codex",
+  "updatedAt": "2026-04-29",
+  "summary": "v0.6.1 shipped to npm and git. Handing off to Codex for full repo audit."
+}
