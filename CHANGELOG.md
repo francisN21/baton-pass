@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.6.3 - 2026-04-30
+
+- Added missing `templates/baton-pass.template.md` — the `/baton-pass` command referenced it but it did not exist; all other moves already had corresponding templates.
+- Fixed `commands/new-game.md` step 2 hardcoded template path (`docs/skills/baton-pass/templates/`) — replaced with a generic reference that works regardless of install method.
+- Fixed `templates/progress-log.template.md` Session 001 entry: removed hardcoded dragon-dance block (anti-pattern — dragon-dance should only appear when a real lesson was learned); replaced with the same commented-out optional format used in `progress-session.template.md`.
+- Fixed `templates/progress-log.template.md` reference to `templates/progress-session.template.md` — that path does not exist in a user's repo after install; updated to clarify the template lives in the skill package.
+
 ## 0.6.2 - 2026-04-29
 
 - Fixed `new-game` bash script creating a file named `baton-pass` in the repo root instead of `docs/agent-handoff.md`. Root cause: `"handoff"` key appeared in both `triggers` and `paths` sections of the config template; sed matched the wrong one first. Renamed `triggers.handoff` to `triggers.transfer` to eliminate the collision.

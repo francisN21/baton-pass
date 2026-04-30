@@ -1,6 +1,6 @@
 {
   "name": "baton-pass",
-  "version": "0.6.2",
+  "version": "0.6.3",
   "description": "Low-token handoff workflow for multi-agent repos. Installs Claude Code slash commands and shared memory files.",
   "bin": {
     "baton-pass": "./bin/baton-pass.js"

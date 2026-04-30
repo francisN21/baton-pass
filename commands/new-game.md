@@ -4,7 +4,7 @@ Bootstrap the minimum shared memory and state files so multi-agent work can begi
 
 Steps:
 1. Check whether `baton-pass.config.json` already exists. If it does and `--force` was not passed, stop and tell the user.
-2. Copy or create the following files using the templates in `docs/skills/baton-pass/templates/` (or wherever this skill is installed):
+2. Copy or create the following files using the baton-pass skill templates:
    - `baton-pass.config.json`
    - `baton-pass.state.json`
    - `docs/agent-handoff.md`
