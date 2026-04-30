@@ -1,0 +1,22 @@
+{
+  "name": "baton-pass",
+  "version": "0.6.1",
+  "description": "Low-token handoff workflow for multi-agent repos, with Claude Code skills and slash commands for continuity, transfer, receive, ownership checks, and handoff audits.",
+  "author": {
+    "name": "francisN21"
+  },
+  "homepage": "https://github.com/francisN21/baton-pass",
+  "repository": "https://github.com/francisN21/baton-pass",
+  "license": "MIT",
+  "keywords": [
+    "claude-code",
+    "skills",
+    "handoff",
+    "multi-agent",
+    "continuity"
+  ],
+  "skills": [
+    "./"
+  ],
+  "commands": "./commands/"
+}

@@ -1,0 +1,34 @@
+{
+  "name": "baton-pass",
+  "owner": {
+    "name": "francisN21"
+  },
+  "description": "Claude Code plugin marketplace for Baton Pass, a low-token multi-agent handoff workflow.",
+  "version": "0.6.1",
+  "plugins": [
+    {
+      "name": "baton-pass",
+      "source": {
+        "source": "npm",
+        "package": "baton-pass",
+        "version": "0.6.1"
+      },
+      "description": "Adds the Baton Pass skill and slash commands for save-state, baton-pass, foresight, party-check, hindsight, and workflow lessons.",
+      "version": "0.6.1",
+      "author": {
+        "name": "francisN21"
+      },
+      "homepage": "https://github.com/francisN21/baton-pass",
+      "repository": "https://github.com/francisN21/baton-pass",
+      "license": "MIT",
+      "category": "productivity",
+      "keywords": [
+        "claude-code",
+        "skills",
+        "handoff",
+        "multi-agent",
+        "continuity"
+      ]
+    }
+  ]
+}

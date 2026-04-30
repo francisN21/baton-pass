@@ -1,4 +1,9 @@
-# Skill: Baton Pass
+---
+name: baton-pass
+description: Preserve low-token continuity across multi-agent coding sessions. Use when initializing shared handoff docs, pausing work, transferring ownership, receiving a baton, checking turn ownership, or auditing prior handoffs in a repo.
+---
+
+# Baton Pass
 
 Purpose: preserve continuity between multiple agents with the least amount of text necessary.
 

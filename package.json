@@ -1,18 +1,25 @@
 {
   "name": "baton-pass",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "Low-token handoff workflow for multi-agent repos. Installs Claude Code slash commands and shared memory files.",
   "bin": {
     "baton-pass": "./bin/baton-pass.js"
   },
   "files": [
+    ".claude-plugin/",
+    "SKILL.md",
+    "INIT.md",
     "bin/",
     "commands/",
+    "examples/",
+    "scripts/",
     "templates/"
   ],
   "keywords": [
     "claude",
     "claude-code",
+    "claude-code-plugin",
+    "claude-skill",
     "ai-agents",
     "multi-agent",
     "handoff",

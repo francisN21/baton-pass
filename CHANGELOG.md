@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.6.1 - 2026-04-29
+
+- Added Claude Code plugin manifest at `.claude-plugin/plugin.json`.
+- Added Claude Code marketplace manifest at `.claude-plugin/marketplace.json` using the published npm package as the plugin source.
+- Updated npm package contents to ship `.claude-plugin/`.
+- Clarified README install paths for Claude Code plugin install vs npm CLI install.
+
 ## 0.6.0 - 2026-04-18
 
 - Added `package.json` — package is now installable via `npx baton-pass`

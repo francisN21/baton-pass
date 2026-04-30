@@ -257,13 +257,47 @@ If you are already on Claude Pro and a paid ChatGPT/Codex plan, this is a much c
 
 ---
 
-## Quick Start
+## Install For Claude Code
+
+Use this path when you want Baton Pass to behave like the public Claude Code skill/plugin repos.
+
+In Claude Code:
+
+```text
+/plugin marketplace add francisN21/baton-pass
+/plugin install baton-pass@baton-pass
+```
+
+From a terminal:
+
+```bash
+claude plugin marketplace add https://github.com/francisN21/baton-pass
+claude plugin install baton-pass@baton-pass
+```
+
+After installing the plugin, Claude Code can use the `baton-pass` skill automatically and these slash commands become available:
+
+```text
+/new-game
+/save-state
+/baton-pass
+/foresight
+/dragon-dance
+/party-check
+/hindsight
+```
+
+## Install Project Files
+
+Use this path when you want to add the shared handoff files and `.claude/commands/` into a repo.
 
 ```bash
 npx baton-pass init
 ```
 
-That's it. This installs the shared memory files and Claude Code slash commands into your project.
+This installs the shared memory files and Claude Code slash commands into your project.
+
+`npm install baton-pass` or `npm install -g baton-pass` installs the Node CLI package. It does not, by itself, enable the Claude Code skill. Use the plugin install above for Claude Code skill activation.
 
 ---
 
