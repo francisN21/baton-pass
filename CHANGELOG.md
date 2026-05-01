@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.6.4 - 2026-04-30
+
+- Fixed plugin load error: "Path escapes plugin directory: ./ (skills)". Moved SKILL.md into a `skills/` subdirectory and updated `plugin.json` skills path from `"./"` to `"skills/"`. Also removed `./` prefix from `commands` path.
+
 ## 0.6.3 - 2026-04-30
 
 - Added missing `templates/baton-pass.template.md` — the `/baton-pass` command referenced it but it did not exist; all other moves already had corresponding templates.
