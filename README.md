@@ -92,14 +92,21 @@ Write the minimum needed for future-you to resume:
 
 Write only:
 - goal
-- completed
+- done
+- tasks *(if mid-plan — list each task with status: done / in-progress / pending)*
 - files changed
+- worktree *(branch + path if using git worktrees)*
 - verified *(honest — use the vocabulary above)*
+- deviations *(mid-session decisions that differ from the original plan)*
+- environment *(prerequisites a fresh agent needs: services running, .env vars, test DBs)*
 - next task
 - risks
 - next agent
 
 Commit first. If you cannot commit, name the uncommitted state in the baton.
+
+> **Why tasks, worktree, deviations, and environment?**
+> Session memory is lost on handoff. A fresh agent cannot reconstruct which of 21 tasks are done from git log, doesn't know which worktree you were in, will re-read the plan and redo decisions you already made, and will hit the same "service not running" blocker without environment facts. Write these explicitly.
 
 ---
 
@@ -253,6 +260,9 @@ If you are already on Claude Pro and a paid ChatGPT/Codex plan, this is a much c
 ✗  turning foresight into a full repo audit every time
 ✗  writing "passed" when you mean "expected to pass, unverified"
 ✗  handing off with a dirty tree without naming the uncommitted state
+✗  omitting task status when mid-way through a numbered plan
+✗  omitting the worktree path when work is inside a git worktree
+✗  omitting environment prerequisites that a fresh agent would not know
 ```
 
 ---
@@ -393,6 +403,8 @@ baton-pass/
 ├── CHANGELOG.md
 ├── bin/
 │   └── baton-pass.js
+├── skills/
+│   └── SKILL.md          ← plugin skill definition (loaded by Claude Code)
 ├── scripts/
 │   ├── new-game.ps1
 │   ├── new-game.sh
@@ -412,6 +424,7 @@ baton-pass/
     ├── agent-handoff.template.md
     ├── baton-pass.config.template.json
     ├── baton-pass.state.template.json
+    ├── baton-pass.template.md
     ├── current-state.template.md
     ├── next-task.template.md
     ├── progress-log.template.md
