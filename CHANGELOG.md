@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.6.8 - 2026-05-02
+
+- Updated README: baton-pass output spec now shows all new fields (tasks, worktree, deviations, environment), anti-patterns list updated, repository layout updated with skills/ and baton-pass.template.md.
+
 ## 0.6.7 - 2026-05-02
 
 - Expanded `baton-pass` output spec with four new fields: `tasks` (plan task status), `worktree` (branch + path), `deviations` (mid-flight decisions that differ from the plan), `environment` (prerequisites a fresh agent needs). These cover the state that is lost on session reset and cannot be reconstructed from git log alone.
