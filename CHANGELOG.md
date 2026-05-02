@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.6.9 - 2026-05-02
+
+- Bumped version to align marketplace.json, plugin.json, and package.json after 0.6.8 was published to npm without updating plugin manifests.
+
 ## 0.6.8 - 2026-05-02
 
 - Updated README: baton-pass output spec now shows all new fields (tasks, worktree, deviations, environment), anti-patterns list updated, repository layout updated with skills/ and baton-pass.template.md.

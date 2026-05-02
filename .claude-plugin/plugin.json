@@ -1,6 +1,6 @@
 {
   "name": "baton-pass",
-  "version": "0.6.6",
+  "version": "0.6.9",
   "description": "Low-token handoff workflow for multi-agent repos, with Claude Code skills and slash commands for continuity, transfer, receive, ownership checks, and handoff audits.",
   "author": {
     "name": "francisN21"
