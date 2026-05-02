@@ -15,8 +15,11 @@ The default initializer creates:
 - `docs/current-state.md`
 - `docs/next-task.md`
 - `docs/progress.md`
+- `.gitignore` block for Baton Pass local files
 
 These are the core dependencies for the workflow.
+
+By default, Baton Pass state is local-only and ignored by git. Track it only when the team explicitly wants handoff state committed to GitHub.
 
 ## Why The Two JSON Files Exist
 
@@ -57,6 +60,22 @@ If you do not want to run scripts:
 5. Copy `templates/next-task.template.md` to `docs/next-task.md`.
 6. Copy `templates/progress-log.template.md` to `docs/progress.md`.
 7. Edit `baton-pass.config.json` if your paths are different.
+8. Decide whether Baton Pass state should be local-only or tracked in git.
+9. Add this block to `.gitignore` for local-only state:
+
+```gitignore
+# Baton Pass local files
+.claude/settings.local.json
+.npm-cache/
+.tmp-*/
+
+# Baton Pass local state
+baton-pass.config.json
+baton-pass.state.json
+docs/
+```
+
+For tracked state, omit only the `# Baton Pass local state` section.
 
 ## After Initialization
 
@@ -64,10 +83,11 @@ Once the files exist:
 
 1. Fill in the first `current-state`.
 2. Fill in the first `next-task`.
-3. Append the first real session entry to `progress`.
-4. Add repo-specific rules to `agent-handoff`.
-5. Update `baton-pass.state.json` with the active or paused state.
-6. Start using `save-state`, `baton-pass`, `foresight`, and `party-check`.
+3. Review the Baton Pass block in `.gitignore`.
+4. Append the first real session entry to `progress`.
+5. Add repo-specific rules to `agent-handoff`.
+6. Update `baton-pass.state.json` with the active or paused state.
+7. Start using `save-state`, `baton-pass`, `foresight`, and `party-check`.
 
 ## Safe Defaults
 

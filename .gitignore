@@ -1,6 +1,6 @@
 .DS_Store
 Thumbs.db
-.claude/settings.local.json
+.claude/
 .npm-cache/
 .tmp-*/
 
@@ -8,4 +8,3 @@ Thumbs.db
 baton-pass.config.json
 baton-pass.state.json
 docs/
-.claude/commands/

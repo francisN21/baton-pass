@@ -1,13 +1,33 @@
 param(
   [string]$RootPath = ".",
-  [switch]$Force
+  [switch]$Force,
+  [switch]$TrackState
 )
 
 $scriptDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $packageRoot = Split-Path -Parent $scriptDir
 $templatesDir = Join-Path $packageRoot "templates"
 $commandsDir = Join-Path $packageRoot "commands"
-$resolvedRoot = Resolve-Path -Path $RootPath
+if (-not (Test-Path -LiteralPath $RootPath)) {
+  New-Item -ItemType Directory -Path $RootPath -Force | Out-Null
+}
+$resolvedRoot = (Resolve-Path -LiteralPath $RootPath).Path
+$gitignoreBlock = @(
+  "# Baton Pass local files"
+  ".claude/settings.local.json"
+  ".npm-cache/"
+  ".tmp-*/"
+) -join [Environment]::NewLine
+if (-not $TrackState) {
+  $gitignoreBlock = @(
+    $gitignoreBlock
+    ""
+    "# Baton Pass local state"
+    "baton-pass.config.json"
+    "baton-pass.state.json"
+    "docs/"
+  ) -join [Environment]::NewLine
+}
 
 function Copy-IfNeeded {
   param(
@@ -65,12 +85,30 @@ if (Test-Path -LiteralPath $commandsDir) {
   }
 }
 
+$gitignorePath = Join-Path $resolvedRoot ".gitignore"
+Write-Host ""
+Write-Host "Updating .gitignore..."
+if ((Test-Path -LiteralPath $gitignorePath) -and ((Get-Content -LiteralPath $gitignorePath -Raw) -like "*# Baton Pass local files*")) {
+  Write-Host "skip  $gitignorePath"
+} else {
+  if ((Test-Path -LiteralPath $gitignorePath) -and ((Get-Content -LiteralPath $gitignorePath -Raw).Trim().Length -gt 0)) {
+    Add-Content -LiteralPath $gitignorePath -Value ""
+  }
+  Add-Content -LiteralPath $gitignorePath -Value $gitignoreBlock
+  Write-Host "write $gitignorePath"
+}
+
 Write-Host ""
 Write-Host "Baton Pass new-game complete."
 Write-Host "Next:"
 Write-Host "- Review baton-pass.config.json"
 Write-Host "- Review baton-pass.state.json"
+if ($TrackState) {
+  Write-Host "- Review the Baton Pass block added to .gitignore (state files are trackable)"
+} else {
+  Write-Host "- Review the Baton Pass block added to .gitignore (state files are local-only)"
+}
 Write-Host "- Customize docs/agent-handoff.md for your repo"
 Write-Host "- Fill in docs/current-state.md and docs/next-task.md"
 Write-Host "- Start appending real sessions to docs/progress.md"
-Write-Host "- Slash commands installed to .claude/commands/ — use /new-game, /save-state, /baton-pass, /foresight, /dragon-dance, /party-check, /hindsight"
+Write-Host "- Slash commands installed to .claude/commands/: use /new-game, /save-state, /baton-pass, /foresight, /dragon-dance, /party-check, /hindsight"

@@ -1,5 +1,17 @@
 # Changelog
 
+## 0.6.6 - 2026-05-02
+
+- Changed `new-game` default to local-only Baton Pass state so routine handoff files do not churn in GitHub.
+- Added `npx baton-pass init --track-state` for teams that want `baton-pass.config.json`, `baton-pass.state.json`, and `docs/` committed.
+- Updated `/new-game` instructions to ask whether state should be tracked or local-only.
+
+## 0.6.5 - 2026-05-01
+
+- Updated `new-game` / `npx baton-pass init` to add a `.gitignore` block for Baton Pass local files.
+- Kept shared handoff files trackable; only local generated noise is ignored.
+- Updated PowerShell and shell init scripts to match the npm CLI behavior.
+
 ## 0.6.4 - 2026-04-30
 
 - Fixed plugin load error: "Path escapes plugin directory: ./ (skills)". Moved SKILL.md into a `skills/` subdirectory and updated `plugin.json` skills path from `"./"` to `"skills/"`. Also removed `./` prefix from `commands` path.

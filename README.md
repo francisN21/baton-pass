@@ -295,7 +295,9 @@ Use this path when you want to add the shared handoff files and `.claude/command
 npx baton-pass init
 ```
 
-This installs the shared memory files and Claude Code slash commands into your project.
+This installs the shared memory files, Claude Code slash commands, and a `.gitignore` block for Baton Pass local files into your project.
+
+By default, `npx baton-pass init` keeps Baton Pass state local-only so GitHub does not fill up with routine handoff churn. Use `--track-state` when a team wants the handoff state committed and shared through git.
 
 `npm install baton-pass` or `npm install -g baton-pass` installs the Node CLI package. It does not, by itself, enable the Claude Code skill. Use the plugin install above for Claude Code skill activation.
 
@@ -303,7 +305,7 @@ This installs the shared memory files and Claude Code slash commands into your p
 
 ### What gets installed
 
-**Shared memory files** (tracked in your repo):
+**Shared memory files** (created in your repo):
 ```
 baton-pass.config.json
 baton-pass.state.json
@@ -324,6 +326,21 @@ docs/progress.md
 /hindsight
 ```
 
+**Local files ignored by `.gitignore`:**
+```gitignore
+# Baton Pass local files
+.claude/settings.local.json
+.npm-cache/
+.tmp-*/
+
+# Baton Pass local state
+baton-pass.config.json
+baton-pass.state.json
+docs/
+```
+
+If you run `npx baton-pass init --track-state`, the local state section is omitted so the shared memory files can be committed.
+
 Each command tells Claude exactly what to do for that move — no copy-pasting instructions.
 
 ---
@@ -332,6 +349,7 @@ Each command tells Claude exactly what to do for that move — no copy-pasting i
 
 ```bash
 npx baton-pass init [target-dir]      # install into a specific directory
+npx baton-pass init --track-state     # leave state files trackable in git
 npx baton-pass commands [target-dir]  # install only slash commands
 npx baton-pass init --force           # overwrite existing files
 npx baton-pass help
@@ -343,7 +361,8 @@ npx baton-pass help
 
 1. Adjust `baton-pass.config.json` if your repo uses different file paths.
 2. Fill in `docs/current-state.md` and `docs/next-task.md`.
-3. Add repo-specific rules to `docs/agent-handoff.md`. Keep the portable skill generic — project rules stay local.
+3. Review the Baton Pass block in `.gitignore`; remove the local state lines only if you want git-tracked handoff history.
+4. Add repo-specific rules to `docs/agent-handoff.md`. Keep the portable skill generic — project rules stay local.
 
 ---
 

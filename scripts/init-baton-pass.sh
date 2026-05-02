@@ -3,11 +3,13 @@ set -eu
 
 ROOT_PATH="${1:-.}"
 FORCE="${FORCE:-false}"
+TRACK_STATE="${TRACK_STATE:-false}"
 
 SCRIPT_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 PACKAGE_ROOT=$(CDPATH= cd -- "$SCRIPT_DIR/.." && pwd)
 TEMPLATES_DIR="$PACKAGE_ROOT/templates"
 COMMANDS_DIR="$PACKAGE_ROOT/commands"
+mkdir -p "$ROOT_PATH"
 ROOT_DIR=$(CDPATH= cd -- "$ROOT_PATH" && pwd)
 
 copy_if_needed() {
@@ -57,10 +59,39 @@ if [ -d "$COMMANDS_DIR" ]; then
   done
 fi
 
+GITIGNORE_PATH="$ROOT_DIR/.gitignore"
+printf '\nUpdating .gitignore...\n'
+if [ -f "$GITIGNORE_PATH" ] && grep -q '# Baton Pass local files' "$GITIGNORE_PATH"; then
+  printf 'skip  %s\n' "$GITIGNORE_PATH"
+else
+  if [ -s "$GITIGNORE_PATH" ]; then
+    printf '\n' >> "$GITIGNORE_PATH"
+  fi
+  {
+    printf '%s\n' '# Baton Pass local files'
+    printf '%s\n' '.claude/settings.local.json'
+    printf '%s\n' '.npm-cache/'
+    printf '%s\n' '.tmp-*/'
+    if [ "$TRACK_STATE" != "true" ]; then
+      printf '\n'
+      printf '%s\n' '# Baton Pass local state'
+      printf '%s\n' 'baton-pass.config.json'
+      printf '%s\n' 'baton-pass.state.json'
+      printf '%s\n' 'docs/'
+    fi
+  } >> "$GITIGNORE_PATH"
+  printf 'write %s\n' "$GITIGNORE_PATH"
+fi
+
 printf '\nBaton Pass new-game complete.\n'
 printf 'Next:\n'
 printf '%s\n' '- Review baton-pass.config.json'
 printf '%s\n' '- Review baton-pass.state.json'
+if [ "$TRACK_STATE" = "true" ]; then
+  printf '%s\n' '- Review the Baton Pass block added to .gitignore (state files are trackable)'
+else
+  printf '%s\n' '- Review the Baton Pass block added to .gitignore (state files are local-only)'
+fi
 printf '%s\n' '- Customize docs/agent-handoff.md for your repo'
 printf '%s\n' '- Fill in docs/current-state.md and docs/next-task.md'
 printf '%s\n' '- Start appending real sessions to docs/progress.md'
