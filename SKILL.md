@@ -1,6 +1,6 @@
 ---
 name: baton-pass
-description: Preserve low-token continuity across multi-agent coding sessions. Use when initializing shared handoff docs, pausing work, transferring ownership, receiving a baton, checking turn ownership, or auditing prior handoffs in a repo.
+description: Multi-agent handoff workflow for coding repos. Use this skill whenever: setting up a repo for multi-agent work (/new-game), pausing or transferring work between Claude/Codex/other agents (/save-state, /baton-pass), receiving handed-off work from another agent (/foresight), checking who currently owns the work (/party-check), auditing what was actually completed vs claimed across sessions (/hindsight), or when context/tokens are running low and work must continue in a new session. Also invoke when a user mentions task lists, worktrees, multi-agent plans, or handoff continuity.
 ---
 
 # Baton Pass
@@ -8,6 +8,36 @@ description: Preserve low-token continuity across multi-agent coding sessions. U
 Purpose: preserve continuity between multiple agents with the least amount of text necessary.
 
 This is a low-token workflow utility, not a documentation ceremony.
+
+## Quick Setup
+
+### Install the skill (recommended)
+
+In Claude Code:
+```
+/plugin marketplace add francisN21/baton-pass
+/plugin install baton-pass@baton-pass
+/reload-plugins
+```
+
+### Initialize a repo for multi-agent work
+
+```bash
+npx baton-pass init
+```
+
+Add `--track-state` if you want handoff state committed to git (for teams that need shared history). Default is local-only (gitignored).
+
+This creates:
+- `baton-pass.config.json` — tells the workflow where your memory files live
+- `baton-pass.state.json` — lightweight shared ownership state
+- `docs/agent-handoff.md` — repo-specific rules for all agents
+- `docs/current-state.md` — what is happening right now
+- `docs/next-task.md` — who owns the work and what comes next
+- `docs/progress.md` — running session log (append-only)
+
+And installs slash commands into `.claude/commands/`:
+`/new-game` `/save-state` `/baton-pass` `/foresight` `/dragon-dance` `/party-check` `/hindsight`
 
 ## The Move Set
 
@@ -102,8 +132,12 @@ Minimal output:
 Minimal output:
 - goal
 - done
+- tasks (if using a task plan — list each task with status: done / in-progress / pending)
 - files
+- worktree (branch name and worktree path if using git worktrees)
 - verified
+- deviations (decisions made mid-session that differ from the original plan)
+- environment (prerequisites the next agent must confirm: services running, .env vars set, test DBs, etc.)
 - next
 - risks
 - next agent
@@ -113,12 +147,21 @@ Commit discipline:
 - Never hand off a dirty working tree without naming the uncommitted state explicitly.
 - If verification was not run, say so — do not imply it passed.
 
+**Why tasks, worktree, deviations, and environment matter:**
+Session memory is lost on handoff. If you are mid-way through a 20-task plan, the next agent cannot reconstruct which tasks are done from git log alone — write the status explicitly. If you are working inside a worktree, the next agent needs the exact path. If you fixed something differently than the plan said, write it down — the next agent will re-read the plan and redo it the wrong way. If the environment must be in a specific state (database running, .env populated), name it — a fresh agent will hit the same blocker without it.
+
 ### `foresight`
 
 Minimal output:
 - aligned or not
 - if not aligned, what was stale or missing
 - corrected next step only if needed
+
+If drift is severe (baton claims work was done but the repo shows otherwise), write a structured drift report before continuing:
+- what was claimed
+- what the repo actually shows
+- what must be redone
+- whether this drift warrants a `dragon-dance`
 
 ### `dragon-dance`
 
@@ -167,11 +210,23 @@ Check only the minimum needed to avoid missteps:
 - `next-task`
 - latest `progress` entry
 - files named in the saved state or baton
+- task list status if a plan was in progress
 
 Then decide:
 - if aligned, continue
 - if misaligned, correct the baton and continue
 - if the misalignment reveals a reusable lesson, run `dragon-dance`
+
+## Skill Discovery Across Agents
+
+When skills are installed project-locally (into `.claude/commands/` or via plugin install to the repo), Codex and other agents that pick up the repo will find the same skill definitions. The skill files travel with the repo.
+
+What skills do NOT carry across a session boundary:
+- Task state from in-memory task managers (TaskCreate lists are lost when the session ends)
+- Subagent execution state (which review loops completed, which agents ran)
+- Environment state (what services are running, what .env vars are set)
+
+The baton-pass must write all of this explicitly. Skills tell agents how to work; the baton tells them where things stand.
 
 ## State Model
 
@@ -227,6 +282,9 @@ Avoid:
 - restating the whole project instead of the delta
 - writing `passed` when you mean `expected to pass, unverified`
 - handing off with a dirty working tree without naming the uncommitted state
+- omitting task status when mid-way through a numbered plan
+- omitting the worktree path when work is inside a git worktree
+- omitting environment prerequisites that a fresh agent would not know
 
 ## Best Practical Flow
 

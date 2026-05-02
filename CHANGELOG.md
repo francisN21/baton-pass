@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.6.7 - 2026-05-02
+
+- Expanded `baton-pass` output spec with four new fields: `tasks` (plan task status), `worktree` (branch + path), `deviations` (mid-flight decisions that differ from the plan), `environment` (prerequisites a fresh agent needs). These cover the state that is lost on session reset and cannot be reconstructed from git log alone.
+- Added Quick Setup section to SKILL.md: plugin install path (`/plugin marketplace add francisN21/baton-pass`), `npx baton-pass init` CLI, complete file list, slash commands, local-only vs tracked state choice.
+- Added Skill Discovery section explaining what skills carry across session boundaries and what the baton must write explicitly (task state, subagent state, environment).
+- Added `foresight` drift report guidance: when drift is severe, write a structured report before continuing.
+- Updated anti-patterns: added omitting task status, worktree path, and environment prerequisites.
+- Updated `baton-pass.template.md` with all new fields and inline comments explaining when each applies.
+- Updated description to be more specific about trigger scenarios.
+
 ## 0.6.6 - 2026-05-02
 
 - Changed `new-game` default to local-only Baton Pass state so routine handoff files do not churn in GitHub.
